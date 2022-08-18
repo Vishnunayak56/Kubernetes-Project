@@ -28,5 +28,5 @@ spec:
       volumes:
       - name: index.html
         hostPath:
-          path: /Users/sofija/Documents/nginx/v1
+          path: /Users/vcnu/Kubernetes-Project/nginx/v1
 
