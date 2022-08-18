@@ -23,7 +23,7 @@ spec:
       ports:
       - containerPort: 80
       volumeMounts:
-      - mountPath: /Users/vcnu/Kubernetes-Project
+      - mountPath: /usr/share/nginx/html
         name: index.html
       volumes:
       - name: index.html
