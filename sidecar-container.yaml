@@ -1,0 +1,38 @@
+metadata:
+  name: simple-webapp
+  labels:
+    app: webapp
+spec:
+  containers:
+    - name: main-application
+      image: nginx
+      volumeMounts:
+        - name: shared-logs
+          mountPath: /var/log/nginx
+    - name: sidecar-container
+      image: busybox
+      command: ["sh","-c","while true; do cat /var/log/nginx/access.log; sleep 30; done"]
+      volumeMounts:
+        - name: shared-logs
+          mountPath: /var/log/nginx
+  volumes:
+    - name: shared-logs
+      emptyDir: {}
+
+---
+
+# Service Configuration
+# --------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-webapp
+  labels:
+    run: simple-webapp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: webapp
+  type: NodePort
